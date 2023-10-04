@@ -31,10 +31,10 @@ performance_tuning_file_list:
       dest: '/etc/security/limits.conf' }
 
 # Set the location the product packages should reside in (eg: "local" in the /files directory, "remote" in a remote location)
-pack_location: local
-#pack_location: remote
-#remote_jdk: "<URL_TO_JDK_FILE>"
-#remote_pack: "<URL_TO_APIM_ANALYTICS_PACK>"
+#pack_location: local
+pack_location: remote
+remote_jdk: "https://github.com/amb0u/artefacts/releases/download/1.0.0/jdk-8u333-linux-aarch64.tar.gz"
+remote_pack: "https://github.com/amb0u/artefacts/releases/download/1.0.0/wso2is-5.9.0.zip"
 
 # JDK Distributions
 jdk_name: amazon-corretto-8.242.08.1-linux-x64
