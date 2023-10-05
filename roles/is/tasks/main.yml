@@ -58,10 +58,12 @@
       remote_src: yes
     when: pack_location == "remote"
 
-  # - name: Copy JDBC Driver
-  #   copy:
-  #     src: "{{ product_package_location }}/lib/{{ jdbc_driver }}"
-  #     dest: "{{ carbon_home }}/repository/components/lib"
+  - name: Create destination directories
+    file:
+      path: "{{ item.dest | dirname }}"
+      state: directory
+      mode: '0755'
+    loop: "{{ config_files }}"
 
   - name: Copy configuration templates
     template:
