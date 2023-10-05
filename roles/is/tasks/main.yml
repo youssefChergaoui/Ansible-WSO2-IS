@@ -1,73 +1,77 @@
 ---
-- name: Install and Configure WSO2 Identity Server
-  hosts: is
-  become: yes
-  become_method: sudo
-  become_user: root
-  gather_facts: yes
+# tasks file for myrole
 
-  tasks:
-    - name: Set installation directory information
-      set_fact:
-        product_dir: "{{ target }}/is"
-        carbon_home: "{{ target }}/is/{{ product_name }}-{{ product_version }}"
+# Set installation directory information
+- name: Installation Information
+  set_fact:
+    product_dir: "{{ target }}/is"
+    carbon_home: "{{ target }}/is/{{ product_name }}-{{ product_version }}"
 
-    - name: Create product directory
-      file:
-        path: "{{ product_dir }}"
-        state: directory
-        mode: 0755
+# Create product directory
+- name: Create product directory
+  file:
+    path: "{{ product_dir }}"
+    state: directory
+    mode: 0755
 
-    - name: Copy WSO2IS service file
-      template:
-        src: "wso2is.service.j2"
-        dest: /etc/systemd/system/wso2is.service
+# Copy WSO2IS service file
+- name: Copy WSO2IS service file
+  template:
+    src: "wso2is.service.j2"
+    dest: /etc/systemd/system/wso2is.service
 
-    - name: Stop wso2is as a service
-      systemd:
-        name: wso2is
-        state: stopped
+# Stop wso2is as a service
+- name: Stop wso2is as a service
+  systemd:
+    name: wso2is
+    state: stopped
 
-    - name: Remove existing setup
-      file:
-        path: "{{ carbon_home }}"
-        state: absent
+# Remove existing setup
+- name: Remove existing setup
+  file:
+    path: "{{ carbon_home }}"
+    state: absent
 
-    - name: Unzip WSO2 Identity Server Package
-      unarchive:
-        src: "{{ 'local' if pack_location == 'local' else remote_pack }}"
-        dest: "{{ product_dir }}"
-        mode: u=rw,g=r,o=r
-        remote_src: yes
-      when: pack_location == "local" or pack_location == "remote"
+# Unzip WSO2 Identity Server Package from local source
+- name: Unzip WSO2 Identity Server Package from local source
+  unarchive:
+    src: "{{ product_package_location }}/packs/{{ product_name }}-{{ product_version }}.zip"
+    dest: "{{ product_dir }}"
+    mode: u=rw,g=r,o=r
+  when: pack_location == "local"
 
-    - name: Copy configuration templates
-      template:
-        src: "{{ item.src }}"
-        dest: "{{ item.dest }}"
-      loop: "{{ config_files }}"
+# Unzip WSO2 Identity Server Package from remote source
+- name: Unzip WSO2 Identity Server Package from remote source
+  unarchive:
+    src: "{{ remote_pack }}"
+    dest: "{{ product_dir }}"
+    mode: u=rw,g=r,o=r
+    remote_src: yes
+  when: pack_location == "remote"
 
-    # You can enable customization by uncommenting the following line
-    # - import_tasks: custom.yml
+# Copy configuration templates
+- name: Copy configuration templates
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  loop: "{{ config_files }}"
 
-    - name: Change the owner of WSO2 directory
-      file:
-        path: "{{ target }}"
-        state: directory
-        recurse: yes
-        owner: "{{ wso2_user }}"
-        group: "{{ wso2_group }}"
-        mode: 0755
+# You can enable customization by uncommenting the following line
+# - import_tasks: custom.yml
 
+# Change the owner of WSO2 directory
+- name: Change the owner of WSO2 directory
+  file:
+    path: "{{ target }}"
+    state: directory
+    recurse: yes
+    owner: "{{ wso2_user }}"
+    group: "{{ wso2_group }}"
+    mode: 0755
+
+# Start WSO2 Identity Server as a service
 - name: Start WSO2 Identity Server as a service
-  hosts: is
-  become: yes
-  become_method: sudo
-  become_user: root
-
-  tasks:
-    - name: Start wso2-is as a service
-      systemd:
-        name: wso2is
-        state: started
-        daemon_reload: yes
+  systemd:
+    name: wso2is
+    state: started
+    daemon_reload: yes
