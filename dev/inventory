@@ -1,5 +1,5 @@
 #is_1 ansible_host=120.199.43.75 ansible_connection=ssh ansible_user=opc ansible_ssh_private_key_file=C:\Users\gonka\Downloads\ansible-is\files\lib\VM-1_key.pem
-is_1 ansible_host=20.39.249.88 ansible_connection=ssh ansible_user=chergaoui38 ansible_ssh_private_key_file=~/.ssh/VM-2_key.pem
+is_1 ansible_host=20.199.44.150 ansible_connection=ssh ansible_user=azureuser ansible_ssh_private_key_file=~/.ssh/VM-2_key.pem
 
 #analytics ansible_host=20.199.43.75 ansible_user=[ssh_user] 
 # Example
