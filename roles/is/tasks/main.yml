@@ -13,6 +13,10 @@
     path: "{{ product_dir }}"
     state: directory
     mode: 0755
+  become: yes
+  become_method: sudo
+  become_user: root
+
 
 # Copy WSO2IS service file
 - name: Copy WSO2IS service file
