@@ -22,8 +22,4 @@
   roles:
     - common
 
-- name: Apply Identity Server configuration to is nodes
-  hosts:
-    - is_1
-  roles:
-    - is
+
