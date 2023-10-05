@@ -81,7 +81,7 @@
         group: "{{ wso2_group }}"
         mode: 0755
 
-    when: "(inventory_hostname in groups['is'])"
+    #when: "(inventory_hostname in groups['is'])"
     become: true
     become_method: sudo
     become_user: root
