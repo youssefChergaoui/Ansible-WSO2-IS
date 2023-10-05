@@ -18,7 +18,7 @@ wso2_group: wso2
 wso2_user: wso2carbon
 product_name: wso2is
 product_version: 5.10.0
-target: /home/chergaoui38
+target: /home/azureuser
 product_package_location: files
 jdbc_driver: mysql-connector-java-5.1.47-bin.jar
 
