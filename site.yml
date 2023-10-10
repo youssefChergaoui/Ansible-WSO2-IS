@@ -3,9 +3,9 @@
   roles:
     - common
 
-#- name: Apply Identity Server configuration to is nodes
-  #hosts:
-#   - is_1
-  #become: yes   
-#  roles:
-#    - is
+- name: Apply Identity Server configuration to is nodes
+  hosts:
+   - is_1
+  become: yes   
+  roles:
+    - is
