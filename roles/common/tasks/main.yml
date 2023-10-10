@@ -44,6 +44,14 @@
         name: unzip
         state: present
 
+    - name: Add OpenJDK 8 repository
+      become: yes
+      become_user: root
+      apt_repository:
+        repo: ppa:openjdk-r/ppa
+        state: present
+
+
     - name: Install Java 8
       become: yes
       become_user: root
