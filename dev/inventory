@@ -1,2 +1,2 @@
 [is]
-is_1 ansible_host=20.199.15.33 ansible_connection=ssh ansible_user=azureuser ansible_ssh_private_key_file=~/.ssh/VM-2_key.pem
+is_1 ansible_host=20.39.249.218 ansible_connection=ssh ansible_user=azureuser ansible_ssh_private_key_file=~/.ssh/VM-2_key.pem
